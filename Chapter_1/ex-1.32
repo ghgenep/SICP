@@ -1,0 +1,29 @@
+
+; exercise 1.32
+
+; the function does an accumulation of terms [a, b] with combiner()
+(define (accumulate-r combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      ; the term function changes every element from [a, b]
+      (combiner (term a)
+                (accumulate-r combiner null-value term (next a) next b))))
+                
+; the same function, but a linear iterative process is used                
+(define (accumulate-i combiner null-value term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (combiner (term a) result))))
+  (iter a null-value))
+  
+; realisation of sum() function from last exercises, by using accumulate()
+;                                                             function 
+(define (sum term a next b)
+  (accumulate-i + 0 term a next b))
+  
+; realisation of product () function from last exercises, by using
+;                                              accumulate() function
+(define (product term a next b)
+  (accumulate-i * 1 term a next b))
+  

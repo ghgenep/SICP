@@ -1,0 +1,59 @@
+
+; exercise 1.33
+
+; the function combines only those terms in [a, b] if filter(term) 
+;                                                     returns #t
+(define (filtered-accumulate filter combiner null-value term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (combiner result
+                                 (if (filter a)
+                                     (term a)
+                                     null-value)))))
+  (iter a null-value))
+  
+; part a
+; the function returns sum of prime numbers in range [a, b]
+(define (square-sum a b)
+  (filtered-accumulate prime? + 0 square a inc b))
+
+(define (inc a) (+ a 1))
+
+(define (square a) (* a a))
+  
+; the function returns #t if n is a prime number
+(define (prime? n)
+  (define (smallest-divisor n)
+    (find-divisor n 2))
+  (define (divides? a b)
+    (if (= 0 (remainder a b))
+        #t
+        #f))     
+  (define (find-divisor n test-divisor)
+    (cond ((> (square test-divisor) n) n)
+          ((divides? n test-divisor) test-divisor)
+          (else (find-divisor n (inc test-divisor)))))
+  
+  (if (= n (smallest-divisor n))
+      #t
+      #f))
+
+; part b
+; the function returns product of all even numbers less than n and are
+;                                                         coprime to n
+(define (even-product n)
+  (define (identity a) a)
+  (define (inc2 a) (+ a 2))
+  ; it returns greater common divisor
+  (define (gcd a b)
+    (if (= b 0)
+        a
+        (gcd b (remainder a b))))
+  (define (coprime-to-n? a)
+    (if (= (gcd n a) 1)
+        #t
+        #f))
+        
+  (filtered-accumulate coprime-to-n? * 1 identity 2 inc2 n))
+  

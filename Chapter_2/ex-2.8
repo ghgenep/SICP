@@ -1,0 +1,40 @@
+
+; exercise 2.8
+
+; constructor of interval objects
+(define (make-interval x y)
+  (cons x y))
+  
+; selectors of bounds
+(define (lower-bound x)
+  (car x))
+(define (upper-bound x)
+  (cdr x))
+
+; --- subtracting of intervals ---:
+(define (sub-interval x y)
+  (make-interval (- (lower-bound x) (upper-bound y))
+                 (- (upper-bound x) (lower-bound y))))
+; ---
+
+; adding of intervals
+(define (add-interval x y)
+  (make-interval (+ (lower-bound x) (lower-bound y))
+                 (+ (upper-bound x) (upper-bound y))))
+
+; multiplying of intervals
+(define (mul-interval x y)
+  ((lambda (p1, p2, p3, p4)
+     (make-interval (min p1, p2, p3, p4)
+                    (max p1, p2, p3, p4)))
+   (* (lower-bound x) (lower-bound y))
+   (* (lower-bound x) (upper-bound y))
+   (* (upper-bound x) (lower-bound y))
+   (* (upper-bound x) (upper-bound y))))
+
+; dividing of interals
+(define (div-interval x y)
+  (mul-interval x
+                (make-interval (/ 1 (upper-bound y))
+                               (/ 1 (lower-bound y)))))
+    

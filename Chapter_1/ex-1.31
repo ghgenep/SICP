@@ -1,0 +1,48 @@
+
+; exercise 1.31
+
+; part a
+; the function multiplies f(a)'s results
+; this is the linear recursive process
+(define (product-r f a next b)
+  (if (> a b)
+      1
+      (* (f a) (product-r f (next a) next b))))
+      
+; the function add 1 to x
+(define (inc x)
+  (+ x 1))
+  
+; the function takes x and then just returns the same x
+(define (identity x)
+  x)
+  
+; the function returns a factorial of n
+(define (factorial n)
+  (product-r identity 1 inc n))
+  
+; the function returns square of any number
+(define (square x)
+  (* x x))
+  
+; the function approximates to pi using Wallis's formula
+(define (take-pi n)
+  (define (next-a a)
+    (+ a 2))
+  (define (f k)
+    (/ (* (- k 1) (+ k 1)) (square k)))
+  (* 4.0
+     (if (even? n) 1 (/ (+ n 1) (+ n 2)))
+     (product-i f 3 next-a (+ n 1))))
+     ; if n is 6, variable a in the function product-i will never be
+     ;                                       more then 7 and so on
+      
+; part b
+; the same function, the linear iterative process is used
+(define (product-i f a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (* (f a) result))))
+  (iter a 1))
+  

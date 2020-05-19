@@ -1,0 +1,11 @@
+
+; exercise 2.23
+
+; the function applies the fun() function to every item in the items
+; list; the #t is always returned
+(define (for-each fun items)
+  (cond ((null? items) #t)
+        (else 
+          (fun (car items))
+          (for-each fun (cdr items)))))
+  

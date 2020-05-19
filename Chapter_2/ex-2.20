@@ -1,0 +1,18 @@
+
+; exercise 2.20
+
+; the function takes one or more integer parameters and returns 
+; a list of all the arguments that have the same even-odd parity 
+; as the first argument
+(define (same-parity x . other)
+  (define (same-iter out other r)
+    (if (null? other)  
+        out
+        (same-iter (if (= (remainder (car other) 2) r)
+                       (append out (list (car other)))
+                       out)
+                   (cdr other)
+                   r)))
+                     
+  (same-iter (list x) other (remainder x 2)))      
+            

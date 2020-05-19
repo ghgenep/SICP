@@ -1,0 +1,24 @@
+
+; exercise 1.7
+
+(define (sqrt x)
+  (sqrt-iter 1.0 0.5 x))
+
+(define (sqrt-iter guess oldguess x)
+  (if (good-enough? guess oldguess)
+      guess
+      (sqrt-iter (improve guess x) guess x)))
+
+(define (good-enough? guess oldguess)
+  (< (abs (- guess oldguess)) 
+      0.0001))
+
+(define (square x)
+  (* x x))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+

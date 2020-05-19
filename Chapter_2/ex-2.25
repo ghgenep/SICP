@@ -1,0 +1,12 @@
+
+; exercise 2.25
+
+; to return 7, we have to do this:
+(car (cdr (car (cdr (cdr '(1 3 (5 7) 9))))))
+
+; or this:
+(car (car '((7))))
+
+; or this(OMG):
+(car (cdr (car (cdr (car (cdr (car (cdr (car (cdr (car (cdr '(1 (2 (3 (4 (5 (6 7)))))))))))))))))
+

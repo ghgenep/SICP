@@ -1,0 +1,43 @@
+
+; exercise 2.11
+
+; constructor of interval objects
+(define (make-interval x y)
+  (cons x y))
+  
+; selectors of bounds
+(define (lower-bound x)
+  (car x))
+(define (upper-bound x)
+  (cdr x))
+
+; --- new multiplying of intervals ---:
+(define (mul-interval x y)
+  ((lambda (xl xu yl yu)
+     (cond ((>= xl 0)
+            (cond ((>= yl 0) (make-interval (* xl yl) (* xu yu)))
+                  ((<= yu 0) (make-interval (* xu yl) (* xl yu)))
+                  (else (make-interval (* xu yl) (* xu yu)))))
+           ((<= xu 0)
+            (cond ((>= yl 0) (make-interval (* xl yu) (* xu yl)))
+                  ((<= yu 0) (make-interval (* xu yu) (* xl yl)))
+                  (else (make-interval (* xl yu) (* xl yl)))))
+           (else (cond ((>= yl 0) (make-interval (* xl yu) (* xu yu)))
+                       ((<= yu 0) (make-interval (* xu yl) (* xl yl)))
+                       (else (make-interval (min (* xu yl) (* xl yu))
+                                            (max (* xl yl) (* xu yu)))))))) 
+   (lower-bound x) (upper-bound x)
+   (lower-bound y) (upper-bound y)))
+   
+(define (>= x y)
+  (if (or (> x y)
+          (= x y))
+      #t
+      #f))
+(define (<= x y)
+  (if (or (< x y)
+          (= x y))
+      #t
+      #f))
+; ---
+

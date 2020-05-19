@@ -1,0 +1,25 @@
+
+; exercise 2.4
+
+; data as procedures(OMG, that's ingeniously):
+
+(define (cons x y)
+  (lambda (m) (m x y)))
+(define (car z)
+  (z (lambda (p q) p)))
+
+; ---
+(define (cdr z)
+  (z (lambda (p q) q)))
+; ---
+
+; one more:
+(define (cons2 x y)
+  (define (dispatch m)
+    (cond ((= m 0) x)
+          ((= m 1) y)
+          (else (error "An argument must be 0 or 1 -- CONS" m))))
+  dispatch)
+(define (car2 z) (z 0))
+(define (cdr2 z) (z 1))
+

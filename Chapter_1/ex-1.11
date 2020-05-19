@@ -1,0 +1,22 @@
+
+; exercise 1.11
+
+; f(n) = n, n < 3
+; f(n) = f(n - 1) + f(n - 2) + f(n - 3), n >= 3
+
+; version 1: tree recursive process
+(define (fib3r n)
+  (cond ((< n 3) n)
+        (else (+ (fib3r (- n 1))
+                 (fib3r (- n 2))
+                 (fib3r (- n 3))))))
+
+; version 2: linear iterative process 
+(define (fib3i n)
+  (fib3i-iter 2 1 0 n))
+
+(define (fib3i-iter a b c n)
+  (cond ((< n 0) n)
+        ((= n 0) c)
+        (else (fib3i-iter (+ a b c) a b (- n 1)))))
+

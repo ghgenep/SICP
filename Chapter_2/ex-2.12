@@ -1,0 +1,35 @@
+
+; exercise 2.12
+
+; constructor of interval objects
+(define (make-interval x y)
+  (cons x y))
+  
+; selectors of bounds
+(define (lower-bound x)
+  (car x))
+(define (upper-bound x)
+  (cdr x))
+
+; new constructor of interval objects with a center and width
+(define (make-center-width c w)
+  (make-interval (- c w) (+ c w)))
+
+; new selectors 
+(define (center i)
+  (/ (+ (lower-bound i) (upper-bound i)) 2))
+(define (width i)
+  (/ (- (upper-bound i) (lower-bound i)) 2))
+  
+; --- creating of interval object with a center and percent ---:
+(define (make-center-percent c p)
+  ((lambda (width)
+     (make-interval (- c width) (+ c width)))
+   (* c (/ p 100))))
+
+; get a percent tolerance in an i interval
+(define (percent i)
+  (/ (* (width i) 100)
+     (center i)))
+; ---
+ 

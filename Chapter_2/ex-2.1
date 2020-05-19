@@ -1,0 +1,30 @@
+
+; exercise 2.1
+
+; rational number constructor, that can handle with negative numbers
+(define (make-rat n d)
+  (let ((g (gcd n d)))
+     (if (< d 0) 
+         (cons (* (/ n g) -1) (* (/ d g) -1))
+         (cons (/ n g) (/ d g)))))
+    
+; ratinal number selectors
+(define (numer x)
+  (car x))  
+(define (denom x)
+  (cdr x))
+  
+; the function returns a greatest common divisor
+(define (gcd n d)
+  (if (= d 0)
+      (abs n)
+      (gcd d (remainder n d))))
+      
+; print it out
+(define (print-rat x)
+  (newline)
+  (display (numer x))
+  (display "/")
+  (display (denom x))
+  (newline))
+

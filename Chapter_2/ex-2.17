@@ -1,0 +1,15 @@
+
+; exercise 2.17
+
+; the function returns a last pair of list l
+; (last-pair '(1 2 3 4)) returns (4)
+(define (last-pair l)
+  (define (last-iter l)
+    (if (null? (cdr l))
+        l
+        (last-iter (cdr l))))
+        
+  (if (null? l)
+      '()
+      (last-iter l)))
+      

@@ -1,0 +1,29 @@
+
+; exercise 1.29
+  
+; the function evaluates the integral with simpson's rule  
+(define (integ fun a b n)
+  (define h (/ (- b a) n))
+  (define (sum fn n)
+    (if (= n 0)
+        0
+        (+ (fn n)
+           (sum fn (- n 1)))))
+           
+  ; the function multiplies f()'s result by 2 or 4, except fy0 and fyN
+  (define (fy n)
+    (* (if (even? n) 2 4) 
+       (f n)))
+  (define (f n)
+    (fun (+ a (* n h))))
+
+  (* (/ h 3)
+     (+ (f n)
+        (f 0)
+        (sum fy (- n 1)))))
+
+(define (even? x) 
+  (if (= (remainder x 2) 0)     
+      #t     
+      #f))
+

@@ -1,0 +1,10 @@
+
+; exercise 1.4
+
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+
+; we have: a = 1, b = 2 or -2
+; if b > 0: (+ 1 2)
+; if b < 0: (- 1 -2)
+

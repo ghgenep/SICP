@@ -1,0 +1,13 @@
+
+; exercise 2.22
+
+; the function returns a list of squares of the items' items
+; this is an iterative process
+(define (square-list items)
+  (define (iter things answer)
+    (if (null? things)
+        answer
+        (iter (cdr things)
+              (append answer (list (square (car things)))))))
+  (iter items '()))
+  

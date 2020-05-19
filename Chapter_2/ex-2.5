@@ -1,0 +1,35 @@
+
+; exercise 2.5
+
+; this is a constructor of pairs of non-negative integers
+(define (cons x y)
+  (* (exp 2 1 x)
+     (exp 3 1 y)))
+     
+; selectors
+(define (car x)
+  (div-num 2 x))
+(define (cdr y)
+  (div-num 3 y))
+  
+; the function raises the a-number to a n-power
+(define (exp a b n)
+  (define (even? x)
+    (if (= (remainder x 2) 0)
+        #t
+        #f))
+      
+  (cond ((= n 0) b)
+        ((even? n) (exp (* a a) b (/ n 2)))
+        (else (exp a (* a b) (- n 1)))))
+      
+; tell us how many times num is divided by the base?
+; (cons 2 3) = 2^2 * 3^3 = 4 * 27 = 108
+; 108/3 = 36/3 = 12/3 = 4/2 = 2/2 = 1
+(define (div-num base num)
+  (define (iter num counter)
+    (if (= (remainder num base) 0)
+        (iter (/ num base) (+ counter 1))
+        counter))
+  (iter num 0))
+        

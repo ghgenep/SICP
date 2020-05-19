@@ -1,0 +1,32 @@
+
+; exercise 1.17
+
+; we don't have the * operation so let's go to create it
+(define (* a b)
+  (if (= b 0)
+      0
+      (+ a (* a (- b 1)))))
+      
+; the function multiplies a by 2
+(define (double a)
+  (+ a a))
+  
+; the function divides a by 2
+(define (halve a)
+  (/ a 2))
+  
+; the function returns #t if x is even number, else - #f
+(define (even? x)
+  (if (= (remainder x 2) 1) 
+      #f 
+      #t))
+  
+; the function has an recursive process; do what * function does
+; a * b = (a * 2) * (b / 2) 
+; a * b = a + (a * (b - 1)) 
+(define (mul a b)
+  (cond ((= b 1) a)
+        ((= b 0) 0)
+        ((even? b) (double (mul a (halve b))))
+        (else (+ a (mul a (- b 1))))))
+        

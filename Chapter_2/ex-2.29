@@ -1,0 +1,85 @@
+
+; exercise 2.29
+
+; constructors of mobiles and branches
+(define (make-mobile left right)
+  (list left right))
+(define (make-branch length structure)
+  (list length structure))
+
+; --- part a ---
+; selectors for mobiles and branches
+(define (left-branch mobile)
+  (car mobile))
+(define (right-branch mobile)
+  (car (cdr mobile)))
+(define (branch-length branch)
+  (car branch))
+(define (branch-structure branch)
+  (car (cdr branch)))
+; ---
+
+; --- part b ---
+; the function returns a weight of all branch
+(define (branch-weight b)
+  (let ((data (branch-structure b)))
+    (cond ((not (pair? data)) data)
+          (else (+ (branch-weight (left-branch data))
+                   (branch-weight (right-branch data)))))))
+                   
+; the function returns a weight of all mobile                   
+(define (total-weight m)
+  (+ (branch-weight (left-branch m))
+     (branch-weight (right-branch m))))
+; ---
+
+; --- part c ---
+; the function returns a value true if a mobile is balanced; 
+; a mobile is balanced if the torque applied by its top-left branch 
+; is equal to its top-right branch torque
+(define (balanced? m)
+  (display "balanced? is OK")
+  (newline)
+    (cond ((not (pair? m)) #t)
+          (else (let ((lb (left-branch m))
+                      (rb (right-branch m)))
+                  (and (branch-equal lb rb)
+                       (balanced? (branch-structure lb))
+                       (balanced? (branch-structure rb)))))))
+; the function returns a value true if (* length weight-of-all-branch
+; of left branch is equal to the right one           
+(define (branch-equal lb rb)
+  (display "branch-equal is OK")
+  (newline)
+  (if (= (* (branch-length lb)
+            (branch-weight lb))
+         (* (branch-length rb)
+            (branch-weight rb)))
+      #t
+      #f))
+; ---
+
+; --- part d ---
+; new selectors for mobiles and branches
+(define (make-mobile left right)
+  (cons left right))
+(define (make-branch length structure)
+  (cons length structure))
+
+; new selectors for mobiles and branches
+(define (left-branch mobile)
+  (car mobile))
+(define (right-branch mobile)
+  (cdr mobile))
+(define (branch-length branch)
+  (car branch))
+(define (branch-structure branch)
+  (cdr branch))
+; ---
+
+(define a (make-mobile (make-branch 1 2) (make-branch 2 1)))
+(define b (make-mobile (make-branch 2 3) (make-branch 1 6)))
+(define c (make-mobile (make-branch 3 a) (make-branch 1 b)))
+; this will return true
+(balanced? c)
+

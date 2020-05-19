@@ -1,0 +1,12 @@
+
+; exercise 2.27
+
+; the function returns a list x in the reverse order(sub-lists are
+; reversed too)
+(define (deep-reverse x)
+  (define (iter x result)
+    (cond ((null? x) result)
+          ((not (pair? x)) x)
+          (else (iter (cdr x) (cons (iter (car x) '()) result)))))
+  (iter x '()))
+

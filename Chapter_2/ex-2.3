@@ -1,0 +1,69 @@
+
+; exercise 2.3
+
+; --- top level ---:
+
+; get an area
+(define (rectangle-area rectangle)
+  (* (rectangle-width rectangle)
+     (rectangle-height rectangle)))
+; get a perimeter
+(define (rectangle-perimeter rectangle)
+  (* 2 (+ (rectangle-width rectangle)
+          (rectangle-height rectangle))))
+
+; --- middle level ---:
+; first rectangle representation
+
+; rectangle constructor
+(define (make-rectangle topleft bottomright)
+  (cons topleft bottomright))
+     
+; selectors of rectangle top & bottom points 
+(define (rectangle-topleft rectangle)
+  (car rectangle))
+(define (rectangle-bottomright rectangle)
+  (cdr rectangle))
+  
+; rectangle width and height selectors
+(define (rectangle-width rectangle)
+  (- (x-point (rectangle-bottomright rectangle))
+     (x-point (rectangle-topleft rectangle))))
+(define (rectangle-height rectangle)
+  (- (y-point (rectangle-topleft rectangle))
+     (y-point (rectangle-bottomright rectangle))))
+
+; second rectangle representation
+
+;rectangle constructor
+(define (make-rectangle width height)
+  (cons width height))
+
+; rectangle width and height selectors
+(define (rectangle-width rectangle)
+  (car rectangle))
+(define (rectangle-height rectangle)
+  (cdr rectangle))
+
+; --- bottom level ---:
+
+; point constructor
+(define (make-point x y)
+  (cons x y))
+
+; point selectors
+(define (x-point point)
+  (car point))
+(define (y-point point)
+  (cdr point))
+  
+; segment constructor
+(define (make-segment p1 p2)
+  (cons p1 p2))
+  
+; segment selectors
+(define (start-segment segment)
+  (car segment))
+(define (end-segment segment)
+  (cdr segment))
+  

@@ -1,0 +1,43 @@
+
+; exercise 2.2
+; realization of points and segments in coordinate system
+
+; point constructor
+(define (make-point x y)
+  (cons x y))
+
+; point selectors
+(define (x-point point)
+  (car point))
+(define (y-point point)
+  (cdr point))
+  
+; segment constructor
+(define (make-segment p1 p2)
+  (cons p1 p2))
+  
+; segment selectors
+(define (start-segment segment)
+  (car segment))
+(define (end-segment segment)
+  (cdr segment))
+  
+; the function returns midpoint
+(define (midpoint segment)
+  (define (average x y)
+    (/ (+ x y) 2.0))
+  (cons (average (x-point (start-segment segment)) 
+                 (x-point (end-segment segment)))
+        (average (y-point (start-segment segment))
+                 (y-point (end-segment segment)))))
+                 
+; print it out
+(define (print-point p)
+  (newline)
+  (display "(")
+  (display (x-point p))
+  (display ", ")
+  (display (y-point p))
+  (display ")")
+  (newline))
+  

@@ -1,0 +1,36 @@
+
+; exercise 2.38
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+          
+(define fold-right accumulate)
+
+; the function does what fold-right(accumulate) one does, except
+; that it accumulates in other order
+(define (fold-left op initial sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+  (iter initial sequence))
+  
+; this will return 3/2
+(fold-right / 1 (list 1 2 3))
+
+; this will return 1/6
+(fold-left / 1 (list 1 2 3))
+
+; this will return (1 (2 (3 ())))
+(fold-right list '() (list 1 2 3))
+
+; this will return (((() 1) 2) 3)
+(fold-left list '() (list 1 2 3))
+
+; the both functions will return an equal retult, if op() is
+; commutative operation like + or *
+

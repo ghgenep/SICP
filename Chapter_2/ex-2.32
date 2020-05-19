@@ -1,0 +1,12 @@
+
+; exercise 2.32
+
+; the function takes a list-set and returns new set of all subsets
+(define (subsets s)
+  (if (null? s)
+      (list '())
+      (let ((rest (subsets (cdr s))))
+        (append rest (map (lambda (sub-s)
+                            (cons (car s) sub-s))
+                          rest)))))
+                          

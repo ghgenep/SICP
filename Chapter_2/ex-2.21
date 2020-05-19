@@ -1,0 +1,14 @@
+
+; exercise 2.21
+
+; the function returns a list of squares of the items' items
+(define (square-list items)
+  (if (null? items)
+      '()
+      (cons (square (car items))
+            (square-list (cdr items)))))
+   
+; does the same, but with map() function         
+(define (square-list2 items)
+  (map square items))
+  

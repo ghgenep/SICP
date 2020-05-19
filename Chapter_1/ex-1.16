@@ -1,0 +1,28 @@
+
+; exrecise 1.16
+
+; the function returns square of x
+(define (square x)
+  (* x x))
+  
+; the function returns #t if x is even number, else - #f
+(define (even? x)
+  (= (remainder(x 2)) 1))
+
+; the function returns b^n      
+(define (expt b n)
+  (fast-expt 1 b n))
+
+; the function has an iterative process;
+; for even? clause:
+; b^2 = b^1 * b^1
+; b^4 = b^2 * b^2
+; b^8 = b^4 * b^4
+; ... and so on;
+; for else clause:
+; b^3 = b * b^2
+(define (fast-expt a b n)
+  (cond ((= n 1) (* a b))
+        ((even? n) (fast-expt a (square b) (/ n 2)))
+        (else (fast-expt (* a b) b (- n 1)))))
+        

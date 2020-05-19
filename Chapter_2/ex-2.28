@@ -1,0 +1,11 @@
+
+; exercise 2.28
+
+; the function takes a tree-object and returns all elements as a list
+(define (fringe x)
+  (define (iter x result)
+    (cond ((null? x) result)
+          ((not (pair? x)) (list x))
+          (else (iter (cdr x) (append result (iter (car x) '()))))))
+  (iter x '()))
+  

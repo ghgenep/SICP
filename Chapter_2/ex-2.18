@@ -1,0 +1,13 @@
+
+; exercise 2.18
+
+; the function returns a list l in the reverse order
+(define (reverse l)
+  (define (reverse-iter l out)
+    (if (null? l)
+        out
+        (reverse-iter (cdr l) 
+                      (cons (car l) out))))
+                      
+  (reverse-iter l '()))
+  

@@ -1,0 +1,17 @@
+
+; exercise 2.31
+
+(define (square x) (* x x))
+
+; the function change every element of tree with fun() function
+(define (tree-map fun tree)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (tree-map fun sub-tree)
+             (fun sub-tree)))
+       tree))
+       
+; the function from the exercise 2.30
+(define (square-tree tree)
+  (tree-map square tree))
+  
